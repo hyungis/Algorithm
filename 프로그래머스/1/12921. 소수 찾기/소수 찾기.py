@@ -1,13 +1,14 @@
-def isPrime(n):
-    for i in range(2, int(n**0.5)+1):
-        if n % i == 0:
-            return False
-    return True
-
-
 def solution(n):
+    prime = [True for _ in range(n+1)]
     answer = 0
+    for i in range(2, int(n**0.5)+1):
+        j = 2
+        if prime[i] == True:
+            while i*j <= n:
+                prime[i*j] = False
+                j += 1
+    
     for i in range(2, n+1):
-        if isPrime(i) == True:
+        if prime[i]:
             answer += 1
     return answer
