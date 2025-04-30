@@ -1,14 +1,15 @@
-n = int(input())
+t = int(input())
 
-for i in range(1, n+1):
-    testcase = int(input())
-    li = list(map(int, input().split()))
-    arr = [0] * 101
-    answer_li = []
-    for j in li:
-        arr[j] += 1
-    
-    for k in range(len(arr)):
-        if arr[k] == max(arr):
-            answer_li.append(k)
-    print(f"#{testcase} {max(answer_li)}")
+for tc in range(1, t+1):
+    n = int(input())
+    score = [0]*101
+    result = 0
+    arr = list(map(int, input().split()))
+    for i in arr:
+        score[i] += 1
+    max_score = max(score)
+    for i in range(100, 0, -1):
+        if score[i] == max_score:
+            result = i
+            break
+    print(f'#{tc} {result}')
