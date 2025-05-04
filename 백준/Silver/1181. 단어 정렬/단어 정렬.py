@@ -1,5 +1,6 @@
-n = int(input())
-arr = [input() for _ in range(n)]
+import sys
+n = int(sys.stdin.readline())
+arr = [sys.stdin.readline().rstrip() for _ in range(n)]
 
 arr = list(set(arr))
 arr.sort()
