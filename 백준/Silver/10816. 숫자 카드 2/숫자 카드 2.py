@@ -1,7 +1,8 @@
-n = int(input())
-arr1 = list(map(int, input().split()))
-m = int(input())
-arr2 = list(map(int, input().split()))
+import sys
+n = int(sys.stdin.readline().strip())
+arr1 = list(map(int, sys.stdin.readline().strip().split()))
+m = int(sys.stdin.readline().strip())
+arr2 = list(map(int, sys.stdin.readline().strip().split()))
 arr1.sort()
 
 count = {}
@@ -10,18 +11,16 @@ for i in arr1:
         count[i] += 1
     else:
         count[i] = 1
-
-for i in arr2:
-    start, end = 0, n-1
-
-    while start <= end:
-        mid = (start+end) // 2
-        if i == arr1[mid]:
-            print(count[i], end=' ')
-            break
-        elif i > arr1[mid]:
-            start = mid + 1
-        else:
-            end = mid - 1
+def binary_search(m, arr1, start, end):
+    if start > end:
+        return 0
+    mid = (start+end) // 2
+    if m == arr1[mid]:
+        return count[m]
+    elif m > arr1[mid]:
+        return binary_search(m, arr1, mid+1, end)
     else:
-        print(0, end= ' ')
+        return binary_search(m, arr1, start, mid-1)
+
+for m in arr2:
+    print(binary_search(m, arr1, 0, len(arr1)-1), end=' ')
