@@ -1,26 +1,24 @@
-import sys
 from collections import deque
 
-n = int(sys.stdin.readline())
-m = int(sys.stdin.readline())
+n = int(input())
+m = int(input())
 
-arr = [[] for _ in range(n+1)]
-for i in range(m):
-    a, b = map(int, sys.stdin.readline().split())
+arr = [[]for _ in range(n+1)]
+for _ in range(m):
+    a, b = map(int, input().split())
     arr[a].append(b)
     arr[b].append(a)
-visited = [False for _ in range(n+1)]
-q = deque()
-q.append(1)
+visited = [False]*(n+1)
 visited[1] = True
-result = 0
-while q:
-    cur = q.popleft()
-    for val in arr[cur]:
-        if visited[val] == False:
-            q.append(val)
-            visited[val] = True
-            result += 1
+def bfs(v):
+    queue = deque()
+    queue.append(v)
 
-print(result)
-
+    while queue:
+        x = queue.popleft()
+        for i in arr[x]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = True
+bfs(1)
+print(visited.count(True)-1)
