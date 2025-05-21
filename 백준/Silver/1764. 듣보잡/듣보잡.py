@@ -1,12 +1,10 @@
-import sys
+n, m = map(int, input().split())
 
-n, m = map(int, sys.stdin.readline().split())
-arr1 = set([sys.stdin.readline().strip() for _ in range(n)])
-arr2 = [sys.stdin.readline().strip() for _ in range(m)]
-result = []
-for i in arr2:
-    if i in arr1:
-        result.append(i)
+arr_1 = [input() for _ in range(n)]
+arr_2 = [input() for _ in range(m)]
+
+result = set(arr_1) & set(arr_2)
+
 print(len(result))
-for i in sorted(result):
+for i in sorted((result)):
     print(i)
