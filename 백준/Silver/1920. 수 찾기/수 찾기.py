@@ -1,10 +1,9 @@
-import sys
-n = int(sys.stdin.readline())
-li = set(map(int, sys.stdin.readline().split()))
-m = int(sys.stdin.readline())
-li2 = list(map(int, sys.stdin.readline().split()))
-for i in li2:
-    if i in li:
+n = int(input())
+arr_n = set(list(map(int, input().split())))
+m = int(input())
+arr_m = list(map(int, input().split()))
+for i in arr_m:
+    if i in arr_n:
         print(1)
     else:
         print(0)
