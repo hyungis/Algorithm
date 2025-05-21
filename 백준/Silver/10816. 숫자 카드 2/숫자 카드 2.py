@@ -1,26 +1,29 @@
 import sys
-n = int(sys.stdin.readline().strip())
-arr1 = list(map(int, sys.stdin.readline().strip().split()))
-m = int(sys.stdin.readline().strip())
-arr2 = list(map(int, sys.stdin.readline().strip().split()))
-arr1.sort()
-
-count = {}
-for i in arr1:
-    if i in count:
-        count[i] += 1
+def binary_search(target, data):
+    start, end = 0, n-1
+    while start <= end:
+        mid = (start+end)//2
+        if data[mid] == target:
+            return dic[data[mid]]
+            break
+        elif data[mid] > target:
+            end = mid - 1
+        else:
+            start = mid + 1
     else:
-        count[i] = 1
-def binary_search(m, arr1, start, end):
-    if start > end:
         return 0
-    mid = (start+end) // 2
-    if m == arr1[mid]:
-        return count[m]
-    elif m > arr1[mid]:
-        return binary_search(m, arr1, mid+1, end)
-    else:
-        return binary_search(m, arr1, start, mid-1)
+n = int(sys.stdin.readline())
+arr_1 = list(map(int, sys.stdin.readline().split()))
+m = int(sys.stdin.readline())
+arr_2 = list(map(int, sys.stdin.readline().split()))
+arr_1.sort()
 
-for m in arr2:
-    print(binary_search(m, arr1, 0, len(arr1)-1), end=' ')
+dic = {}
+for i in arr_1:
+    if i not in dic:
+        dic[i] = 1
+    else:
+        dic[i] += 1
+
+for j in arr_2:
+    print(binary_search(j, arr_1), end=' ')
