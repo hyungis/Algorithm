@@ -1,20 +1,21 @@
 import java.io.*;
 import java.util.StringTokenizer;
-import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int M = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
 		
 		int[] arr = new int[N+1];
 		
 		for (int i=0; i<M; i++) {
-			int a =sc.nextInt();
-			int b =sc.nextInt();
-			int c =sc.nextInt();
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int c = Integer.parseInt(st.nextToken());
 			for(int j=a ; j<=b; j++) {
 				arr[j] = c;
 			}
