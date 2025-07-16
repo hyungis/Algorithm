@@ -1,22 +1,26 @@
 import java.io.*;
 import java.util.StringTokenizer;
-import java.util.Arrays;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
 		
 		int N = Integer.parseInt(br.readLine());
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		int min = 1000001;
+		int max = -1000001;
 		
-		int[] arr = new int[N];
 		for (int i = 0; i<N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
+			int value = Integer.parseInt(st.nextToken());
+			
+			if (value < min) {
+				min = value;
+			}
+			if (value > max) {
+				max = value;
+			}
 		}
-		
-		Arrays.sort(arr);
-		System.out.println(arr[0]+" "+arr[N-1]);
+		System.out.println(min+" "+max);
 	}
 }
