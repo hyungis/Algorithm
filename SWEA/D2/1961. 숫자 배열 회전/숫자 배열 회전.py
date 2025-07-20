@@ -1,31 +1,32 @@
-t = int(input())
+import java.util.*;
 
-for tc in range(1, t+1):
-    n = int(input())
-    li = [list(map(int, input().split())) for _ in range(n)]
-
-    li_90 = [[0 for _ in range(n)] for _ in range(n)]
-    li_180 = [[0 for _ in range(n)] for _ in range(n)]
-    li_270 = [[0 for _ in range(n)] for _ in range(n)]
-
-    for i in range(n):
-        for j in range(n):
-            li_90[i][j] = li[n-1-j][i]
-    for i in range(n):
-        for j in range(n):
-            li_180[i][j] = li_90[n-1-j][i]
-    for i in range(n):
-        for j in range(n):
-            li_270[i][j] = li_180[n-1-j][i]
-
-    print(f'#{tc}')
-    for i in range(n):
-        for a in range(n):
-            print(li_90[i][a], end='')
-        print(end=' ')
-        for b in range(n):
-            print(li_180[i][b], end='')
-        print(end=' ')
-        for c in range(n):
-            print(li_270[i][c], end='')
-        print()
+public class Solution {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int test = sc.nextInt();
+		for(int t = 1; t <= test; t++) {
+			int n = sc.nextInt();
+			int[][] a = new int[n][n];
+			for(int i = 0; i < n; i++) {
+				for(int j = 0; j < n; j++) {
+					a[i][j] = sc.nextInt();
+				}
+			}
+			System.out.println("#" + t + " ");
+			for(int i = 0; i < n; i++) {
+				for(int j = 0; j < n; j++) {
+					System.out.print(a[n-j-1][i]);
+				}
+				System.out.print(" ");
+				for(int j = 0; j < n; j++) {
+					System.out.print(a[n-i-1][n-j-1]);
+				}
+				System.out.print(" ");
+				for(int j = 0; j < n; j++) {
+					System.out.print(a[j][n-1-i]);
+				}
+				System.out.println();
+			}
+		}
+	}
+}
