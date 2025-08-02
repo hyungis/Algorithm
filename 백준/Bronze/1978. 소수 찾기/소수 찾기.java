@@ -16,24 +16,21 @@ public class Main {
 		
 		for(int i = 0; i<n; i++) {
 			int x = Integer.parseInt(st.nextToken());
-			if(x == 1) continue;
-			else if (x == 2) cnt++;
-			else {
-				boolean result = true;
-				for(int j = 2; j<x; j++) {
-					if (x%j == 0) {
-						result = false;
-						break;
-					}
-					
-				}
-				if (result) cnt++;
-				
-			}
+			if(isPrime(x)) cnt++;
 		}
 		
 		System.out.println(cnt);
 		
+		
+	}
+	static boolean isPrime(int n) {
+		if(n==1) {
+			return false;
+		} 
+		for(int i = 2; i<n; i++) {
+			if(n%i == 0) return false;
+		}
+		return true;
 		
 	}
 
