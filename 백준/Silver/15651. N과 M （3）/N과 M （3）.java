@@ -17,11 +17,11 @@ public class Main {
 		arr = new int[m];
 		sb = new StringBuilder();
 		
-		dfs(0, 1);
+		dfs(0);
 		System.out.println(sb);
 		
 	}
-	public static void dfs(int cnt, int start) {
+	public static void dfs(int cnt) {
 		if(cnt == m) {
 			for(int v: arr) {
 				sb.append(v).append(" ");
@@ -30,9 +30,9 @@ public class Main {
 			return;
 		}
 		
-		for(int i = start; i<=n; i++) {
+		for(int i = 1; i<=n; i++) {
 			arr[cnt] = i;
-			dfs(cnt+1, start);
+			dfs(cnt+1);
 		}
 	}
 
