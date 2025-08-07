@@ -13,7 +13,7 @@ public class Main {
 	static int[] arr;
 	static boolean[] check;
 	static int n, m;
-	
+	static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -24,15 +24,15 @@ public class Main {
 		check = new boolean[n+1];
 		dfs(0);
 		
-		
+		System.out.println(sb);
 		
 	}
 	public static void dfs(int cnt) {
 		if(cnt == m) {
 			for(int v: arr) {
-				System.out.print(v + " ");
+				sb.append(v).append(" ");
 			}
-			System.out.println();
+			sb.append('\n');
 			return;
 		}
 		
