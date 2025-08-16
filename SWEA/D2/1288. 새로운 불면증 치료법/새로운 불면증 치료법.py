@@ -1,13 +1,41 @@
-t = int(input())
+import java.io.*;
+import java.util.*;
 
-for tc in range(1, t+1):
-    s = set()
-    n = int(input())
-    base = n
-    result = 0
-    while len(s) < 10:
-        for i in str(n):
-            s.add(i)
-        result += 1
-        n += base
-    print(f'#{tc} {result*base}')
+public class Solution {
+	
+	static int[] arr;
+	static int n,m;
+	public static void main(String[] args) throws IOException {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringBuilder sb = new StringBuilder();
+    	
+    	int T = Integer.parseInt(br.readLine());
+    	for(int t=1; t<=T; t++) {
+    		int n = Integer.parseInt(br.readLine());
+    		
+    		int mask = 0;
+    		int target = (1<<10) -1;
+    		int result = 0;
+    		
+    		int k = 0;
+    		while(mask != target) {
+    			k++;
+    			int num = n*k;
+    			while(num>0) {
+    				mask |= 1 << (num%10);
+    				num /= 10;
+    			}
+    		}
+    		result = n*k;
+    		
+    		sb.append("#").append(t).append(" ").append(result).append('\n');
+    	}
+    	System.out.println(sb);
+    	
+    	
+    	
+	}
+	
+	
+   
+}
