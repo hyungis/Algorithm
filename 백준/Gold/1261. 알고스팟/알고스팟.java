@@ -5,11 +5,9 @@ public class Main {
 	
 	static int n, m;
 	static int[][] map;
-	static int[][] minWeight;
 	static boolean[][] visited;
 	static int[] dr = {-1, 1, 0, 0};
 	static int[] dc = {0, 0, -1, 1};
-	static int INF = Integer.MAX_VALUE;
 	
 	static class Point implements Comparable<Point>{
 		int r, c, weight;
@@ -36,7 +34,6 @@ public class Main {
 		m = Integer.parseInt(st.nextToken());
 		n = Integer.parseInt(st.nextToken());
 		map = new int[n][m];
-		minWeight = new int[n][m];
 		visited = new boolean[n][m];
 		
 		for(int i = 0; i<n; i++) {
@@ -45,43 +42,38 @@ public class Main {
 				map[i][j] = s.charAt(j) - '0';
 			}
 		}
-		for(int i = 0; i<n; i++) {
-			for(int j = 0; j<m; j++) {
-				minWeight[i][j] = INF;
-			}
-		}
-		
-		dijkstra();
-		System.out.println(minWeight[n-1][m-1]);
+
+		int result = bfs();
+		System.out.println(result);
 
 	} 
-	static void dijkstra() {
-		PriorityQueue<Point> pq = new PriorityQueue<>();
-		minWeight[0][0] = 0;
+	static int bfs() {
+		Deque<Point> dq = new ArrayDeque<>();
+		dq.offer(new Point(0, 0, 0));
 		
-		pq.offer(new Point(0, 0, 0));
-		
-		while(!pq.isEmpty()) {
-			Point now = pq.poll();
+		while(!dq.isEmpty()) {
+			Point now = dq.poll();
 			
-			if(visited[now.r][now.c]) continue;
-			visited[now.r][now.c] = true;
+			if(visited[now.r][now.c])continue;
+			visited[now.r][now.c]=true;
 			
-			if(now.r == n-1 && now.c == m-1) return;
-			 
+			if(now.r == n-1 && now.c == m-1) return now.weight;
+			
 			for(int i = 0; i<4; i++) {
 				int nr = now.r + dr[i];
 				int nc = now.c + dc[i];
 				
 				if(nr < 0 || nc < 0 || nr >= n || nc >= m || visited[nr][nc]) continue;
 				
-				if(!visited[nr][nc] && minWeight[nr][nc] > map[nr][nc] + now.weight) {
-					minWeight[nr][nc] = map[nr][nc] + now.weight;
-					pq.offer(new Point(nr, nc, minWeight[nr][nc]));
+				if(map[nr][nc] == 0) {
+					dq.addFirst(new Point(nr, nc, now.weight));
+				}else {
+					dq.addLast(new Point(nr, nc, now.weight+1));
 				}
 			}
 		}
 		
+		return -1;
 	}
 
 }
