@@ -2,76 +2,65 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	
-	static int v, e;
-	static int[] parents;
-	static Edge[] edges;
-	
-	static class Edge implements Comparable<Edge>{
-		int from, to, weight;
+    static class Edge implements Comparable<Edge> {
+        int v, w;
+        public Edge(int v, int w) {
+            this.v = v;
+            this.w = w;
+        }
+        @Override
+        public int compareTo(Edge o) {
+            return Integer.compare(this.w, o.w);
+        }
+    }
 
-		public Edge(int from, int to, int weight) {
-			super();
-			this.from = from;
-			this.to = to;
-			this.weight = weight;
-		}
-
-		@Override
-		public int compareTo(Edge o) {
-			return Integer.compare(this.weight, o.weight);
-		}
-	}
-	
-	static int find(int a) {
-		if(parents[a] == a) return a;
-		return parents[a] = find(parents[a]);
-	}
-	
-	static boolean union(int a, int b) {
-		int pa = find(a);
-		int pb = find(b);
-		if(pa == pb) return false;
-		if(pa > pb) parents[pb] = pa;
-		else parents[pa] = pb;
-		return true;
-	}
-	
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        StringBuilder sb = new StringBuilder();
-        
+
+        int V, E;
         st = new StringTokenizer(br.readLine());
-        v = Integer.parseInt(st.nextToken());
-        e = Integer.parseInt(st.nextToken());
-        parents = new int[v+1];
-        for(int i = 1; i<=v; i++) {
-        	parents[i] = i;
+        V = Integer.parseInt(st.nextToken());
+        E = Integer.parseInt(st.nextToken());
+
+        List<Edge>[] graph = new ArrayList[V + 1];
+        for (int i = 1; i <= V; i++) graph[i] = new ArrayList<>();
+
+        for (int i = 0; i < E; i++) {
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+
+            graph[u].add(new Edge(v, w));
+            graph[v].add(new Edge(u, w));
         }
-        
-        edges = new Edge[e];
-        for(int i = 0; i<e; i++) {
-        	st = new StringTokenizer(br.readLine());
-        	int from = Integer.parseInt(st.nextToken());
-        	int to = Integer.parseInt(st.nextToken());
-        	int weight = Integer.parseInt(st.nextToken());
-        	edges[i] = new Edge(from, to, weight);
+
+        boolean[] visited = new boolean[V + 1];
+        int[] minEdge = new int[V + 1];
+        Arrays.fill(minEdge, Integer.MAX_VALUE);
+
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+        pq.offer(new Edge(1, 0)); // 시작 정점
+
+        int result = 0, cnt = 0;
+
+        while (!pq.isEmpty()) {
+            Edge cur = pq.poll();
+            if (visited[cur.v]) continue;
+
+            visited[cur.v] = true;
+            result += cur.w;
+            if (++cnt == V) break; // 모든 정점 방문 완료
+
+            for (Edge next : graph[cur.v]) {
+                if (!visited[next.v] && next.w < minEdge[next.v]) {
+                    minEdge[next.v] = next.w;
+                    pq.offer(new Edge(next.v, next.w));
+                }
+            }
         }
-        
-        Arrays.sort(edges);
-        
-        int result = 0;
-        int cnt = 0;
-        int s = v-1;
-        for(Edge v : edges) {
-        	if(!union(v.from, v.to)) continue;
-        	result += v.weight;
-        	if(++cnt == s) break;
-        }
+
         System.out.println(result);
     }
-
-    
 }
-
