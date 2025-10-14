@@ -1,19 +1,26 @@
 def solution(n, lost, reserve):
-    # 정렬
-    lost.sort()
-    reserve.sort()
-	
-    # lost, reserve에 공통으로 있는 요소 제거
-    for i in reserve[:]:
-        if i in lost:
-            reserve.remove(i)
-            lost.remove(i)
-	
-    # 체육복 빌려주기(나의 앞 번호부터 확인)
-    for i in reserve:
-        if i-1 in lost:
-            lost.remove(i-1)
-        elif i+1 in lost:
-            lost.remove(i+1)
+    answer = 0
     
-    return n-len(lost)
+    students = [1 for _ in range(n + 1)]
+    for l in lost:
+        students[l] = 0
+    for r in reserve:
+        students[r] += 1
+        
+    for i in range(1, n + 1):
+        if students[i] == 0:
+            if students[i - 1] == 2:
+                students[i - 1] -= 1
+                students[i] += 1
+                continue
+            elif i != n and students[i + 1] == 2:
+                students[i + 1] -= 1
+                students[i] += 1
+                continue
+        else:
+            continue
+    
+    for i in range(1, n + 1):
+        if students[i]: answer += 1
+    
+    return answer
