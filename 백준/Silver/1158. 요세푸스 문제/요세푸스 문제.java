@@ -1,33 +1,45 @@
-import java.util.Deque;
-import java.util.ArrayDeque;
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
+    
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		Deque<Integer> d = new ArrayDeque<>();
-		
-		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
-		StringBuilder sb = new StringBuilder("<");
-		for(int i = 1; i <= n; i++) {
-			d.add(i);
-		}
-		while(!d.isEmpty()) {
-			for(int i=0; i<k; i++) {
-				d.add(d.poll());
-			}
-			if(d.size() == 1) {
-				sb.append(d.pollLast());
-			} else sb.append(d.pollLast()).append(", ");
-			
-		}
-		sb.append(">");
-		System.out.println(sb);
-	}
-
+    public static void main(String[] args) throws IOException {
+    		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    		StringTokenizer st;
+    		StringBuilder sb = new StringBuilder();
+    		
+    		st = new StringTokenizer(br.readLine());
+    		int n = Integer.parseInt(st.nextToken());
+    		int k = Integer.parseInt(st.nextToken());
+    		
+    		LinkedList<Integer> list = new LinkedList<Integer>();
+    		for(int i = 1; i<=n; i++) {
+    			list.add(i);
+    		}
+    		
+    		sb.append("<");
+    		int index = 0;
+    		while(!list.isEmpty()) {
+    			index = (index + k -1) % list.size();
+    			sb.append(list.remove(index));
+    			if(!list.isEmpty()) {
+    				sb.append(", ");
+    			}
+    		}
+    		sb.append(">");
+    		System.out.println(sb);
+    		
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
